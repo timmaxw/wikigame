@@ -6,8 +6,6 @@ app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
 app.get('/', (req, res) => {
-  console.log('hi this is app.get');
-  throw new Error('broken');
   res.render('index', {name: 'Tim'});
 });
 
