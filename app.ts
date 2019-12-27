@@ -1,12 +1,13 @@
 const express = require('express');
-const app = express();
-const port = 3000;
+export const app = express();
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
 app.get('/', (req, res) => {
+  console.log('hi this is app.get');
+  throw new Error('broken');
   res.render('index', {name: 'Tim'});
 });
 
@@ -26,5 +27,4 @@ app.post('/game/:gid/code/change', (req, res) => {
 app.post('/game/:gid/code/fork', (req, res) => {
 });
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
 
