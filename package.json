@@ -4,12 +4,16 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "tsc && mocha dist/**/*.test.js",
+    "test": "tsc && mocha",
     "dev": "tsc && node dist/server.js"
+  },
+  "mocha": {
+    "spec": "dist/**/*.test.js"
   },
   "author": "",
   "license": "",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
     "pg": "^7.15.2",
