@@ -5,7 +5,7 @@ export default function(props) {
     <html>
       <head><title>WikiGame {props.game.gid} Code</title></head>
       <body>
-        <iframe src={`/game/${props.game.gid}/play`} />
+        <iframe width="640" height="640" src={`/game/${props.game.gid}/play`} />
         <form method="post">
           <label htmlFor="instructions">Edit instructions:</label>
           <textarea name="instructions" defaultValue={props.game.instructions} />

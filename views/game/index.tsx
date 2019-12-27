@@ -5,7 +5,7 @@ export default function(props) {
     <html>
       <head><title>WikiGame {props.game.gid}</title></head>
       <body>
-        <iframe src={`/game/${props.game.gid}/play`} />
+        <iframe width="640" height="640" src={`/game/${props.game.gid}/play`} />
         <p>{props.game.instructions}</p>
       </body>
     </html>
