@@ -6,10 +6,17 @@ export default function(props) {
       if (event.which == 83 && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
         document.getElementById('submit').click();
-        return false;
-      } else {
-        return true;
       }
+    });
+    window.addEventListener('load', (loadEvent) => {
+      var textarea = document.getElementsByName('code')[0];
+      textarea.addEventListener('keydown', (event) => {
+        if (event.which == 9) {
+          /* Ideally we'd insert spaces into the textarea, but this doesn't play
+          nicely with undo. But at least we can prevent the focus switching. */
+          event.preventDefault();
+        }
+      });
     });
   `;
   return (
