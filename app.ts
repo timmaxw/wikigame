@@ -28,16 +28,16 @@ app.get('/game/:gid(\\d+)/code', async (req, res) => {
   res.render('game/code', {game: game});
 });
 
-app.post('/game/:gid(\\d+)/code', async (req, res) => {
+app.post('/game/:gid(\\d+)/code/save', async (req, res) => {
   let game = await findGame(req.params.gid);
   game = await updateGame(req.params.gid, {
     code: req.body.code || game.code,
     instructions: req.body.instructions || game.instructions,
   });
-  res.render('game/code', {game: game});
+  res.redirect(303, `/game/${game.gid}/code`);
 });
 
-app.post('/game/:gid(\\d+)/code/copy', async (req, res) => {
+app.post('/game/:gid(\\d+)/fork', async (req, res) => {
   const game = await findGame(req.params.gid);
   const gameCopy = await createGame({
     code: game.code,
