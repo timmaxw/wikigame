@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "tsc && mocha",
-    "dev": "tsc --watch & nodemon dist/server.js"
+    "dev": "tsc --watch & nodemon dist/server.js",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "mocha": {
     "spec": "dist/**/*.test.js"
