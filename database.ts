@@ -1,5 +1,8 @@
 import { Pool } from 'pg';
-export const db = new Pool();
+export const db = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
 
 export async function createGame({code, instructions}) {
   const res = await db.query('INSERT INTO games (code, instructions) VALUES ($1::text, $2::text) RETURNING *', [code, instructions]);
