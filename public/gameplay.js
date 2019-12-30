@@ -155,14 +155,16 @@ _keyIsDown = {
 }
 
 function _onKeyDown(event) {
-  if (_keyIsDown[event.code] !== undefined && !event.repeat) {
+  if (_keyIsDown[event.code] !== undefined) {
     _keyIsDown[event.code] = true;
+    event.preventDefault();
   }
 }
 
 function _onKeyUp(event) {
-  if (_keyIsDown[event.code] !== undefined && !event.repeat) {
+  if (_keyIsDown[event.code] !== undefined) {
     _keyIsDown[event.code] = false;
+    event.preventDefault();
   }
 }
 
