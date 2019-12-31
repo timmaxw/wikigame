@@ -1,0 +1,90 @@
+<html>
+<head><title>WikiGame Docs & FAQ</title></head>
+<body>
+
+<h1>Docs & FAQ</h1>
+
+<h2>What's WikiGame?</h2>
+<p>
+  WikiGame is a collaborative platform for making, sharing, and playing
+  online games. It's easiest to understand by example:
+</p>
+<p>
+  <a href="/game/22">Example Game</a>
+</p>
+<p>
+  WikiGame games are written in JavaScript. You can create new games by
+  forking and editing existing games. You can share the games with other
+  people by sending them the URL.
+</p>
+
+<h2>Game engine</h2>
+<p>
+  WikiGame games use their own simple JavaScript game engine.
+</p>
+
+<h3><code>AbstractEntity</code></h3>
+<p>
+  The core class is <code>AbstractEntity</code>; define a subclass of
+  <code>AbstractEntity</code> for each object in your game:
+  <pre>
+    class MyEntity extends AbstractEntity {
+      ...
+    }
+  </pre>
+</p>
+
+<h3><code>new AbstractEntity({x:, y:})</code></h3>
+<p>
+  When creating an <code>AbstractEntity</code>, pass <code>x</code> and
+  <code>y</code> to initialize its position on the screen. The screen is 640 by
+  640 pixels. <code>{x: 0, y: 0}</code> is the top-left corner.
+</p>
+
+<h3><code>entity.x</code> and <code>entity.y</code></h3>
+<p>
+  Represents the entity's position on the screen. Read/write.
+</p>
+
+<h3><code>function MyEntity.step() {...}</code></h3>
+<p>
+  On your subclass of <code>AbstractEntity</code>, if you define a method called
+  <code>step()</code>, it will be called every game-step (30 milliseconds).
+</p>
+
+<h3><code>function MyEntity.draw(ctx) {...}</code></h3>
+<p>
+  On your subclass of <code>AbstractEntity</code>, if you define a method called
+  <code>draw(ctx)</code>, it will be called to render the entity to the screen.
+  The <code>ctx</code> argument will be a
+  <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">
+  HTML5 <code>CanvasRenderingContext2D</code> object</a>.
+</p>
+
+<h3><code>key(name)</code></h3>
+<p>
+  Call <code>key(name)</code> to check if the given key on the keyboard is
+  currently pressed. For example, <code>key("ArrowLeft")</code> returns
+  <code>true</code> if the left arrow key is currently pressed.
+  <code>name</code> can be any <i>common</i> HTML5
+  <code>KeyboardEvent.code</code> value; obscure keys that aren't present on
+  all keyboards, are not allowed. See
+  <a href="https://w3c.github.io/uievents-code/#keyboard-key-codes">here</a> for
+  a list of HTML5 <code>KeyboardEvent.code</code> values.
+</p>
+
+<h3><code>function init() {...}</code></h3>
+<p>
+  If you define a top-level function called <code>init()</code>, it will be
+  called once at the beginning of the game.
+</p>
+
+<h3><code>function step() {...}</code></h3>
+<p>
+  If you define a top-level function called <code>step()</code>, it will be
+  called every game-step.
+</p>
+
+</body>
+</html>
+
