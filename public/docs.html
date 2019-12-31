@@ -25,13 +25,15 @@
 
 <h3><code>AbstractEntity</code></h3>
 <p>
-  The core class is <code>AbstractEntity</code>; define a subclass of
-  <code>AbstractEntity</code> for each object in your game:
+  The core class is <code>AbstractEntity</code>. Define a subclass of
+  <code>AbstractEntity</code> for each object in your game. For example:
   <pre>
     class MyEntity extends AbstractEntity {
       ...
     }
   </pre>
+  (For purposes of these docs, <code>MyEntity</code> will stand for a
+  hypothetical subclass of <code>AbstractEntity</code> that you've defined.)
 </p>
 
 <h3><code>new AbstractEntity({x:, y:})</code></h3>
@@ -59,6 +61,31 @@
   The <code>ctx</code> argument will be a
   <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">
   HTML5 <code>CanvasRenderingContext2D</code> object</a>.
+</p>
+
+<h3><code>MyEntity.instance()</code></h3>
+<p>
+  If there's exactly one instance of <code>MyEntity</code>, returns that
+  instance. If there are no instances, returns <code>null</code>. If there are
+  multiple instances, throws an exception.
+</p>
+
+<h3><code>MyEntity.instances()</code></h3>
+<p>
+  Returns an iterator over instances of <code>MyEntity</code>, so you can write
+  code like <code>for (var entity of MyEntity.instances()) {...}</code>.
+</p>
+
+<h3><code>entity.destroy()</code></h3>
+<p>
+  Destroys the entity. The underlying Javascript object will still exist, but
+  its <code>step()</code> and <code>draw()</code> methods will not be called,
+  and <code>MyEntity.instances()</code> will not return it.
+</p>
+
+<h3><code>entity.destroyed</code></h3>
+<p>
+  Evaluates to <code>true</code> if the entity has been destroyed.
 </p>
 
 <h3><code>key(name)</code></h3>

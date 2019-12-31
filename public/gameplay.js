@@ -1,5 +1,6 @@
 _entityIdNext = 1;
-_entities = {};
+_entities = {}
+_entitiesByKlass = {};
 
 class AbstractEntity {
   constructor({x, y}) {
@@ -25,13 +26,53 @@ class AbstractEntity {
     this._entityId = _entityIdNext;
     ++_entityIdNext;
     _entities[this._entityId] = this;
+
+    let klassProto = Object.getPrototypeOf(this);
+    while (klassProto.constructor !== AbstractEntity) {
+      const klassName = klassProto.constructor.name;
+      if (!_entitiesByKlass[klassName]) {
+        _entitiesByKlass[klassName] = {}
+      }
+      _entitiesByKlass[klassName][this._entityId] = this;
+      klassProto = Object.getPrototypeOf(klassProto);
+    }
   }
 
   get destroyed() {
-    return !!_entities[this._entityId];
+    return !_entities[this._entityId];
   }
   destroy() {
     delete _entities[this._entityId];
+    let klassProto = Object.getPrototypeOf(this);
+    while (klassProto.constructor !== AbstractEntity) {
+      const klassName = klassProto.constructor.name;
+      delete _entitiesByKlass[klassName][this._entityId];
+      klassProto = Object.getPrototypeOf(klassProto);
+    }
+  }
+
+  static *instances() {
+    if (this === AbstractEntity) {
+      throw new TypeError("Don't call .instances() directly on AbstractEntity");
+    }
+    for (var entityId in _entitiesByKlass[this.name]) {
+      yield _entities[entityId];
+    }
+  }
+
+  static instance() {
+    if (this === AbstractEntity) {
+      throw new TypeError("Don't call .instance() directly on AbstractEntity");
+    }
+    let it = null;
+    for (var entityId in _entitiesByKlass[this.name]) {
+      if (it !== null) {
+        throw new RangeError(
+          `more than one instance of ${this.name} exists`);
+      }
+      it = _entities[entityId];
+    }
+    return it;
   }
 };
 
@@ -60,7 +101,9 @@ function _draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (var entityId in _entities) {
     var entity = _entities[entityId];
+    ctx.save();
     entity.draw(ctx);
+    ctx.restore();
   }
   if (_paused) {
     ctx.save();
